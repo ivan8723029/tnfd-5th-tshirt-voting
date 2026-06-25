@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臺南市政府消防局第五大隊 - T-SHIRT 徽章設計展示與錯視解密</title>
+    <meta name="description" content="專為臺南市政府消防局第五大隊設計之美式科技風與日式簡約徽章風消防圖案，融入「出入平安」幾何錯視設計與英勇消防員意象。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-badge" id="header-style-badge">American Tech / Japanese Minimalist</div>
+        <h1 id="main-title">臺南市政府消防局第五大隊</h1>
+        <div class="subtitle" id="main-subtitle">美式科技 & 日式簡約風格 T-SHIRT 徽章展示暨「出入平安」錯視解密</div>
+        <div class="hazard-bar"></div>
+    </header>
+
+    <main class="container">
+        <!-- Style Toggle Card (At top of viewport) -->
+        <div class="style-selector-card">
+            <button class="style-select-btn active" id="style-btn-american" onclick="switchStyle('american')">
+                🇺🇸 美式科技風 (American Tech)
+            </button>
+            <button class="style-select-btn" id="style-btn-japanese" onclick="switchStyle('japanese')">
+                🇯🇵 日式簡約徽章風 (Japanese Minimalist)
+            </button>
+        </div>
+
+        <div class="main-grid">
+            <!-- Left Side: Interactive Viewport -->
+            <section class="viewport-panel">
+                <div class="viewport-container navy" id="viewport">
+                    <img src="assets/tshirt_mockup.png" alt="T-Shirt Mockup" class="viewport-img" id="viewport-image">
+                    
+                    <!-- Dynamic HUD Overlay for Optical Illusion Guide -->
+                    <div class="hud-overlay" id="hud">
+                        <div id="hud-dynamic-content" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
+
+                <!-- Simulation Info Panel -->
+                <div class="control-row">
+                    <div>
+                        <span class="control-label" style="font-family: var(--font-tech);">VIEWPORT STATUS: </span>
+                        <span id="viewport-status" style="color: var(--color-cyan); font-weight: bold;">AMERICAN MOCKUP</span>
+                    </div>
+                    <div id="simulated-fabric-label" style="opacity: 0.6; font-size: 0.85rem;">底布顏色模擬中</div>
+                </div>
+            </section>
+
+            <!-- Right Side: Controls & Concepts -->
+            <section class="control-panel">
+                
+                <!-- View Control Card -->
+                <div class="card">
+                    <h2 class="card-title">視角選擇 / VIEW SELECTOR</h2>
+                    <div class="tabs-grid">
+                        <button class="tab-btn active" id="tab-mockup" onclick="switchView('mockup')">
+                            MOCKUP
+                            <span>全視角示意圖</span>
+                        </button>
+                        <button class="tab-btn" id="tab-front" onclick="switchView('front')">
+                            FRONT PRINT
+                            <span>正面圖案 (消防徽章)</span>
+                        </button>
+                        <button class="tab-btn" id="tab-back" onclick="switchView('back')">
+                            BACK PRINT
+                            <span>反面圖案 (烈焰雄鷹)</span>
+                        </button>
+                        <button class="tab-btn" id="tab-sleeve" onclick="switchView('sleeve')">
+                            SLEEVE PRINT
+                            <span>左臂圖案 (科技臂章)</span>
+                        </button>
+                    </div>
+
+                    <!-- Interactive Options -->
+                    <div class="control-row" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
+                        <span class="control-label">「出入平安」錯視導引線</span>
+                        <label class="switch">
+                            <input type="checkbox" id="guide-toggle" onchange="toggleGuide(this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="control-row" id="color-picker-container" style="opacity: 0.5; pointer-events: none; transition: var(--transition-smooth);">
+                        <span class="control-label">模擬 T-Shirt 衣服底色</span>
+                        <div class="color-picker">
+                            <div class="color-dot navy active" id="color-dot-navy" onclick="changeColor('navy', this)"></div>
+                            <div class="color-dot black" id="color-dot-black" onclick="changeColor('black', this)"></div>
+                            <div class="color-dot gray" id="color-dot-gray" onclick="changeColor('gray', this)"></div>
+                            <div class="color-dot white" id="color-dot-white" onclick="changeColor('white', this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Description Card -->
+                <div class="card">
+                    <h2 class="card-title" id="concept-card-title">設計理念與品牌故事 / DESIGN CONCEPT</h2>
+                    <div class="concept-details" id="concept-desc-content">
+                        <!-- Dynamic Concept text will load here -->
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <!-- Download Center -->
+        <h2 style="font-family: var(--font-tech); text-align: center; margin-top: 4rem; color: var(--color-orange); letter-spacing: 2px;">
+            📥 高解析度圖檔下載中心 / DOWNLOAD CENTER
+        </h2>
+        <p style="text-align: center; color: var(--color-text-muted); margin-bottom: 2rem;">
+            點擊下方按鈕即可取得適用於印刷廠的高解析度透明背景 PNG 檔與穿著示意圖。
+        </p>
+
+        <section class="download-section">
+            <div class="download-card">
+                <img src="" alt="Front Preview" class="download-thumb" id="dl-thumb-front">
+                <div class="download-name">正面印花圖案</div>
+                <div class="download-size">PNG | High-Res</div>
+                <a href="" download="" class="download-btn" id="dl-btn-front">下載正面圖案</a>
+            </div>
+
+            <div class="download-card">
+                <img src="" alt="Back Preview" class="download-thumb" id="dl-thumb-back">
+                <div class="download-name">反面印花圖案</div>
+                <div class="download-size">PNG | High-Res</div>
+                <a href="" download="" class="download-btn" id="dl-btn-back">下載反面圖案</a>
+            </div>
+
+            <div class="download-card">
+                <img src="" alt="Sleeve Preview" class="download-thumb" id="dl-thumb-sleeve">
+                <div class="download-name">左臂臂章圖案</div>
+                <div class="download-size">PNG | High-Res</div>
+                <a href="" download="" class="download-btn" id="dl-btn-sleeve">下載袖子圖案</a>
+            </div>
+
+            <div class="download-card">
+                <img src="" alt="Mockup Preview" class="download-thumb" id="dl-thumb-mockup">
+                <div class="download-name">穿著效果示意圖</div>
+                <div class="download-size">PNG | Preview</div>
+                <a href="" download="" class="download-btn" id="dl-btn-mockup">下載示意圖</a>
+            </div>
+        </section>
+
+        <!-- T-Shirt Voting Section -->
+        <section class="voting-section-header" id="voting-section">
+            <div class="hazard-bar" style="top: -20px; position: absolute;"></div>
+            <h2>🏆 T-SHIRT 樣式選拔與投票 / DESIGN VOTING</h2>
+            <p>請投票給您最喜愛的 T-Shirt 款式，點擊右下角齒輪圖示並輸入管理員密碼「5555」可進入後台數據分析。</p>
+        </section>
+
+        <!-- Category Filter Tabs -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterCatalog('all')">顯示全部 (ALL)</button>
+            <button class="filter-btn" onclick="filterCatalog('jp')">🇯🇵 日式風格 (JAPANESE)</button>
+            <button class="filter-btn" onclick="filterCatalog('us')">🇺🇸 美式風格 (AMERICAN)</button>
+            <button class="filter-btn" onclick="filterCatalog('tw')">🇹🇼 台式風格 (TAIWANESE)</button>
+            <button class="filter-btn" onclick="filterCatalog('eu')">🇪🇺 歐式風格 (EUROPEAN)</button>
+        </div>
+
+        <!-- T-Shirt Catalog Grid -->
+        <section class="tshirt-grid" id="tshirt-catalog">
+            <!-- Dynamic cards generated by JavaScript -->
+        </section>
+    </main>
+
+    <!-- Floating Admin Dashboard Trigger -->
+    <div class="admin-trigger-container">
+        <button class="admin-trigger-btn" onclick="openAdminModal()" title="進入後台系統">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+    </div>
+
+    <!-- Admin Modal Overlay (Passcode + Dashboard) -->
+    <div class="admin-modal" id="admin-modal">
+        <!-- Passcode Lock -->
+        <div class="passcode-container" id="passcode-box">
+            <h3 class="passcode-title">🔐 安全驗證 / SYSTEM LOCK</h3>
+            <p class="passcode-desc">請輸入管理員後台解鎖密碼 (預設為 5555)</p>
+            <input type="password" class="passcode-input" id="admin-passcode" placeholder="••••" maxlength="6" onkeydown="checkPasscodeEnter(event)">
+            <div class="passcode-error" id="passcode-error">密碼錯誤，請重新輸入！</div>
+            <div class="passcode-actions">
+                <button class="modal-btn-cancel" onclick="closeAdminModal()">取消</button>
+                <button class="modal-btn-confirm" onclick="verifyPasscode()">登入</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Panel -->
+        <div class="dashboard-panel" id="dashboard-panel">
+            <div class="dashboard-header">
+                <h3 class="dashboard-title">📊 投票後台數據分析 / ANALYTICS</h3>
+                <button class="dashboard-close" onclick="closeAdminModal()">&times;</button>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <div class="stats-label">總投票數 (TOTAL VOTES)</div>
+                    <div class="stats-val" id="stat-total-votes">0</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-label">最高人氣樣式</div>
+                    <div class="stats-val" id="stat-top-style" style="font-size: 1.15rem; font-family: var(--font-body); padding-top: 0.6rem;">無</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-label">參選樣式數量</div>
+                    <div class="stats-val">12</div>
+                </div>
+            </div>
+
+            <!-- Analytics Bars -->
+            <div class="analytics-section">
+                <h4 class="analytics-title">📐 風格類別得票佔比 / STYLE CATEGORIES</h4>
+                
+                <div class="category-bar-item">
+                    <div class="category-bar-info">
+                        <span class="category-bar-label">🇯🇵 日式簡約風 (JAPANESE)</span>
+                        <span id="percent-label-jp">0票 (0%)</span>
+                    </div>
+                    <div class="category-bar-track">
+                        <div class="category-bar-fill jp" id="bar-jp" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="category-bar-item">
+                    <div class="category-bar-info">
+                        <span class="category-bar-label">🇺🇸 美式科技風 (AMERICAN)</span>
+                        <span id="percent-label-us">0票 (0%)</span>
+                    </div>
+                    <div class="category-bar-track">
+                        <div class="category-bar-fill us" id="bar-us" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="category-bar-item">
+                    <div class="category-bar-info">
+                        <span class="category-bar-label">🇹🇼 台式在地風 (TAIWANESE)</span>
+                        <span id="percent-label-tw">0票 (0%)</span>
+                    </div>
+                    <div class="category-bar-track">
+                        <div class="category-bar-fill tw" id="bar-tw" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="category-bar-item">
+                    <div class="category-bar-info">
+                        <span class="category-bar-label">🇪🇺 歐式典雅風 (EUROPEAN)</span>
+                        <span id="percent-label-eu">0票 (0%)</span>
+                    </div>
+                    <div class="category-bar-track">
+                        <div class="category-bar-fill eu" id="bar-eu" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Table -->
+            <div class="leaderboard-section">
+                <h4 class="analytics-title">🏆 樣式得票排行榜 / LEADERBOARD</h4>
+                <div class="leaderboard-table-container">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>排名</th>
+                                <th>樣式預覽</th>
+                                <th>款式名稱</th>
+                                <th>風格分類</th>
+                                <th>得票數</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <!-- Dynamic rows will render here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="dashboard-actions">
+                <button class="admin-action-btn-reset" onclick="resetAllVotes()">⚠️ 重設所有票數 (RESET)</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 臺南市政府消防局第五大隊. All Rights Reserved. Designed by Antigravity AI.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.5;">
+            本系統所提供的圖案皆為網版印刷最佳化向量風 PNG，色彩配置包含消防橘(Safety Orange)、科技藍(Tech Cyan)與鈦銀灰(Titanium Silver)。
+        </p>
+    </footer>
+
+    <script>
+        const designStyles = {
+            american: {
+                badgeText: "T.N.F.D. 5th American Tech",
+                title: "臺南市政府消防局第五大隊 (美式科技風)",
+                subtitle: "美式硬派消防精神 — 融合「出入平安」錯視徽章展示",
+                images: {
+                    mockup: 'assets/tshirt_mockup.png',
+                    front: 'assets/front_badge_design.png',
+                    back: 'assets/back_badge_design.png',
+                    sleeve: 'assets/left_sleeve_badge_design.png'
+                },
+                hud: {
+                    front: [
+                        { percentX: "50%", percentY: "33%", text: "【科技鋼盔】融入戰術面罩與金屬裝甲切線", x: "25%", y: "20%" },
+                        { percentX: "50%", percentY: "50%", text: "【馬爾他十字】美式消防傳統的硬朗幾何背景", x: "75%", y: "45%" },
+                        { percentX: "43%", percentY: "65%", text: "【安全警戒】外圍裝飾的科技警示斜紋線條", x: "25%", y: "68%" },
+                        { percentX: "50%", percentY: "78%", text: "【大隊文字】簡潔俐落的五大隊英文字樣環繞", x: "75%", y: "82%" }
+                    ],
+                    back: [
+                        { percentX: "50%", percentY: "30%", text: "【機械盾牌】馬爾他十字與齒輪結合的硬核背景", x: "25%", y: "25%" },
+                        { percentX: "50%", percentY: "50%", text: "【無畏消防員】手持救災斧、堅毅挺進的鋼鐵剪影", x: "75%", y: "45%" },
+                        { percentX: "40%", percentY: "68%", text: "【警示條紋】經典美式戰術安全條紋與線框", x: "25%", y: "70%" },
+                        { percentX: "50%", percentY: "82%", text: "【鋼鐵邊界】強烈切角的科技裝甲外框", x: "75%", y: "85%" }
+                    ],
+                    sleeve: [
+                        { percentX: "50%", percentY: "35%", text: "【出入】融入上方盾形裝甲的面板切割線中", x: "25%", y: "30%" },
+                        { percentX: "50%", percentY: "65%", text: "【平安】融入下方裝甲凹槽與警告警示紋路中", x: "75%", y: "70%" }
+                    ]
+                },
+                conceptHtml: `
+                    <p class="concept-text">
+                        此系列設計為經典的<span class="highlight-span">美式科技裝甲風</span>。強調粗獷且具有金屬質感的切線、馬爾他十字與科技裝甲板。整體造型方正硬朗，象徵消防員面對災害時，如同鋼鐵戰士般的強大意志與防護力量。
+                    </p>
+                    <div class="illusion-box">
+                        <div class="illusion-title">🔍 錯視文字解析 (American Ver.)</div>
+                        <p class="concept-text" style="font-size: 0.9rem;">
+                            左臂臂章利用美式戰術盾牌的裝甲接縫線與防撞條紋，巧妙將「<span class="highlight-span">出入平安</span>」字形藏於其中。外觀上是一枚高科技戰術臂章，近看則蘊含對出勤同仁最堅定的平安祝福。
+                        </p>
+                    </div>
+                `,
+                defaultColor: 'navy'
+            },
+            japanese: {
+                badgeText: "T.N.F.D. 5th Japanese Minimalist",
+                title: "臺南市政府消防局第五大隊 (日式簡約徽章風)",
+                subtitle: "日式簡約消防精神 — 融合「出入平安」錯視徽章展示",
+                images: {
+                    mockup: 'assets/tshirt_mockup_japanese_tech.png',
+                    front: 'assets/front_badge_japanese_tech.png',
+                    back: 'assets/back_badge_japanese_tech.png',
+                    sleeve: 'assets/left_sleeve_badge_japanese_tech.png'
+                },
+                hud: {
+                    front: [
+                        { percentX: "50%", percentY: "33%", text: "【臺南消防五】融入外環日式簡潔漢字字樣", x: "25%", y: "20%" },
+                        { percentX: "50%", percentY: "50%", text: "【消防精神】雙斧與水栓融合的幾何核心", x: "75%", y: "45%" },
+                        { percentX: "43%", percentY: "65%", text: "【水波紋】傳統青海波（Seigaiha）線條，象徵以水克火", x: "25%", y: "68%" },
+                        { percentX: "50%", percentY: "78%", text: "【圓形家紋】簡潔的日式家紋（Kamon）外框", x: "75%", y: "82%" }
+                    ],
+                    back: [
+                        { percentX: "50%", percentY: "30%", text: "【烈陽與火焰】簡約圓形背景，象徵希望與無畏熱血", x: "25%", y: "25%" },
+                        { percentX: "50%", percentY: "50%", text: "【英勇英姿】簡潔的消防員剪影，體現堅毅守護神態", x: "75%", y: "45%" },
+                        { percentX: "40%", percentY: "68%", text: "【守護波浪】水藍波紋線條，象徵消防滅火之源", x: "25%", y: "70%" },
+                        { percentX: "50%", percentY: "82%", text: "【簡約美感】去繁從簡的日系海報級排版", x: "75%", y: "85%" }
+                    ],
+                    sleeve: [
+                        { percentX: "50%", percentY: "35%", text: "【出入】字形融入上部幾何防護盾線條中", x: "25%", y: "30%" },
+                        { percentX: "50%", percentY: "65%", text: "【平安】字形融入下部救援梯形與繩索線條中", x: "75%", y: "70%" }
+                    ]
+                },
+                conceptHtml: `
+                    <p class="concept-text">
+                        此風格呈現<span class="highlight-span">日式簡約徽章風</span>。正面左胸以傳統日式家紋（Kamon）為靈感，結合消防栓與水波紋（青海波），呈現乾淨且具代表性的圓形大隊徽章。背面則以簡單時尚的單色海報風格，刻畫消防員背負烈陽、無畏前行的英勇剪影。
+                    </p>
+                    <div class="illusion-box">
+                        <div class="illusion-title">🔍 錯視文字解析 (Japanese Ver.)</div>
+                        <p class="concept-text" style="font-size: 0.9rem;">
+                            左臂臂章利用幾何線條與負空間（Negative Space）的精妙交錯，將「<span class="highlight-span">出入平安</span>」四字巧妙隱藏於防護盾與救援繩索的線條中。遠看是時尚的幾何圖騰，近看則能讀出溫暖的平安祝福。
+                        </p>
+                    </div>
+                `,
+                defaultColor: 'black'
+            }
+        };
+
+        let currentStyle = 'american';
+        let currentView = 'mockup';
+
+        // Initialize App
+        switchStyle('american');
+
+        function switchStyle(style) {
+            currentStyle = style;
+            
+            // Toggle active style buttons
+            document.getElementById('style-btn-american').classList.remove('active');
+            document.getElementById('style-btn-japanese').classList.remove('active');
+            document.getElementById(`style-btn-${style}`).classList.add('active');
+            
+            // Update Headers
+            const data = designStyles[style];
+            document.getElementById('header-style-badge').textContent = data.badgeText;
+            document.getElementById('main-title').textContent = data.title;
+            document.getElementById('main-subtitle').textContent = data.subtitle;
+            
+            // Update Concept
+            document.getElementById('concept-desc-content').innerHTML = data.conceptHtml;
+            
+            // Update Download Section
+            updateDownloads();
+            
+            // Switch view to trigger correct image and color picker behavior
+            switchView(currentView);
+        }
+
+        function switchView(view) {
+            currentView = view;
+            
+            // Update active tab styling
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${view}`).classList.add('active');
+            
+            // Update image source
+            const imgElement = document.getElementById('viewport-image');
+            imgElement.src = designStyles[currentStyle].images[view];
+            
+            // Update status text
+            const statusText = document.getElementById('viewport-status');
+            statusText.textContent = `${currentStyle.toUpperCase()} - ${view.toUpperCase()}` + (view === 'mockup' ? ' MOCKUP' : ' PRINT DESIGN');
+            
+            // Enable/disable fabric color simulation
+            const colorPicker = document.getElementById('color-picker-container');
+            const fabricLabel = document.getElementById('simulated-fabric-label');
+            const viewport = document.getElementById('viewport');
+            
+            if (view === 'mockup') {
+                colorPicker.style.opacity = '0.5';
+                colorPicker.style.pointerEvents = 'none';
+                fabricLabel.textContent = '情境背景效果';
+                viewport.className = 'viewport-container'; // clear background override
+            } else {
+                colorPicker.style.opacity = '1';
+                colorPicker.style.pointerEvents = 'auto';
+                fabricLabel.textContent = '衣服底色模擬中';
+                
+                // Select default background color for the style if not overridden
+                const activeDot = document.querySelector('.color-picker .color-dot.active');
+                if (activeDot) {
+                    const colorClass = Array.from(activeDot.classList).find(c => c !== 'color-dot' && c !== 'active');
+                    viewport.className = `viewport-container ${colorClass}`;
+                } else {
+                    const defaultColor = designStyles[currentStyle].defaultColor;
+                    changeColor(defaultColor, document.getElementById(`color-dot-${defaultColor}`));
+                }
+            }
+            
+            // Refresh HUD overlay
+            drawHud();
+        }
+
+        function changeColor(colorName, dotElement) {
+            if (currentView === 'mockup') return;
+            
+            // Update active dot styling
+            document.querySelectorAll('.color-picker .color-dot').forEach(dot => dot.classList.remove('active'));
+            dotElement.classList.add('active');
+            
+            // Update viewport background fabric simulator
+            const viewport = document.getElementById('viewport');
+            viewport.className = `viewport-container ${colorName}`;
+        }
+
+        function toggleGuide(isActive) {
+            const hud = document.getElementById('hud');
+            if (isActive) {
+                hud.classList.add('active');
+                drawHud();
+            } else {
+                hud.classList.remove('active');
+            }
+        }
+
+        function drawHud() {
+            const hudContainer = document.getElementById('hud-dynamic-content');
+            hudContainer.innerHTML = ''; // clear previous
+            
+            const guideToggle = document.getElementById('guide-toggle');
+            if (!guideToggle.checked || currentView === 'mockup') {
+                document.getElementById('hud').classList.remove('active');
+                return;
+            }
+            
+            document.getElementById('hud').classList.add('active');
+            
+            const styleData = designStyles[currentStyle];
+            const hudData = styleData.hud[currentView];
+            
+            if (!hudData) return;
+            
+            // Draw SVG lines and dots
+            let svgContent = `<svg width="100%" height="100%" style="position: absolute; top:0; left:0;">`;
+            hudData.forEach((item, index) => {
+                svgContent += `
+                    <line x1="${item.x}" y1="${item.y}" x2="${item.percentX}" y2="${item.percentY}" class="hud-line" />
+                    <circle cx="${item.percentX}" cy="${item.percentY}" r="6" fill="#00d2ff" style="filter: drop-shadow(0 0 4px var(--color-cyan-glow));" />
+                `;
+            });
+            svgContent += `</svg>`;
+            
+            // Add HTML Labels
+            let labelsContent = '';
+            hudData.forEach((item, index) => {
+                const sideStyle = item.x.includes('75%') ? `right: 8%;` : `left: 8%;`;
+                labelsContent += `
+                    <div class="hud-label" style="top: calc(${item.y} - 18px); ${sideStyle}">
+                        ${item.text}
+                    </div>
+                `;
+            });
+            
+            hudContainer.innerHTML = svgContent + labelsContent;
+        }
+
+        function updateDownloads() {
+            const data = designStyles[currentStyle];
+            
+            // Update images and download links
+            document.getElementById('dl-thumb-front').src = data.images.front;
+            document.getElementById('dl-btn-front').href = data.images.front;
+            document.getElementById('dl-btn-front').download = `Tinan_Fire_5th_${currentStyle}_Front.png`;
+            
+            document.getElementById('dl-thumb-back').src = data.images.back;
+            document.getElementById('dl-btn-back').href = data.images.back;
+            document.getElementById('dl-btn-back').download = `Tinan_Fire_5th_${currentStyle}_Back.png`;
+            
+            document.getElementById('dl-thumb-sleeve').src = data.images.sleeve;
+            document.getElementById('dl-btn-sleeve').href = data.images.sleeve;
+            document.getElementById('dl-btn-sleeve').download = `Tinan_Fire_5th_${currentStyle}_Sleeve.png`;
+            
+            document.getElementById('dl-thumb-mockup').src = data.images.mockup;
+            document.getElementById('dl-btn-mockup').href = data.images.mockup;
+            document.getElementById('dl-btn-mockup').download = `Tinan_Fire_5th_${currentStyle}_Mockup.png`;
+        }
+
+        // ==========================================
+        // T-Shirt Voting & Admin Dashboard Logic
+        // ==========================================
+        const tshirtData = [
+            { id: 'jp_1', category: 'jp', name: '日式簡約大隊徽章', categoryName: '日式風格', desc: '融合傳統日本消防家紋（Kamon）、消防栓與水紋，簡潔優雅且具強烈代表性。', image: 'assets/tshirt_jp_1.png', defaultVotes: 12 },
+            { id: 'jp_2', category: 'jp', name: '日系未來機甲兜帽', categoryName: '日式風格', desc: '以日本武士火事兜為靈感，融合流線型近未來裝甲防護結構與機械面罩。', image: 'assets/tshirt_jp_2.png', defaultVotes: 8 },
+            { id: 'jp_3', category: 'jp', name: '浮世繪烈焰蒼龍', categoryName: '日式風格', desc: '以浮世繪筆法刻畫水浪紋樣，與咆哮的消防蒼龍相結合，動態感極強。', image: 'assets/tshirt_jp_3.png', defaultVotes: 15 },
+            { id: 'us_1', category: 'us', name: '美式裝甲馬爾他十字', categoryName: '美式風格', desc: '粗獷硬朗的金屬切邊馬爾他十字，融合特種搜救鋼盔，展現硬派精神。', image: 'assets/tshirt_us_1.png', defaultVotes: 14 },
+            { id: 'us_2', category: 'us', name: '美式復古經典救災隊', categoryName: '美式風格', desc: '美式復古圓形火政局徽章，搭配手繪復古字體，洋溢懷舊與可靠感。', image: 'assets/tshirt_us_2.png', defaultVotes: 9 },
+            { id: 'us_3', category: 'us', name: '美式戰術警戒護盾', categoryName: '美式風格', desc: '盾牌邊界與斜向警戒斑馬紋，融入重型破拆消防斧，軍警戰術風格強烈。', image: 'assets/tshirt_us_3.png', defaultVotes: 11 },
+            { id: 'tw_1', category: 'tw', name: '台消先鋒麒麟神獸', categoryName: '台式風格', desc: '台灣民俗守護獸「辟邪麒麟」結合烈火圖騰，展現本土消災守護神韻。', image: 'assets/tshirt_tw_1.png', defaultVotes: 23 },
+            { id: 'tw_2', category: 'tw', name: '台南傳統磚雕水井', categoryName: '台式風格', desc: '融合台南古蹟廟宇傳統水花磚雕，與現代救火水帶交織的精緻復古文創風。', image: 'assets/tshirt_tw_2.png', defaultVotes: 19 },
+            { id: 'tw_3', category: 'tw', name: '台式出入平安書法', categoryName: '台式風格', desc: '蒼勁的手寫正氣毛筆字「出入平安」與消防救援勾斧交錯，本土情懷濃厚。', image: 'assets/tshirt_tw_3.png', defaultVotes: 25 },
+            { id: 'eu_1', category: 'eu', name: '歐式皇家盾徽烈火', categoryName: '歐式風格', desc: '仿中世紀歐洲皇家消防隊騎士盾徽，結合雙頭鷹與神聖皇冠，精緻莊嚴。', image: 'assets/tshirt_eu_1.png', defaultVotes: 7 },
+            { id: 'eu_2', category: 'eu', name: '北歐極簡幾何救護', categoryName: '歐式風格', desc: '瑞典極簡主義幾何直線設計，搭配醒目的反光十字線條，科技且清爽。', image: 'assets/tshirt_eu_2.png', defaultVotes: 10 },
+            { id: 'eu_3', category: 'eu', name: '德意志經典消防衛隊', categoryName: '歐式風格', desc: '簡約大方的德國圓環邊框，以高對比的螢光黃搭配紅底，符合歐洲最高警戒識別標準。', image: 'assets/tshirt_eu_3.png', defaultVotes: 13 }
+        ];
+
+        // Initialize Votes database in localStorage
+        function initVotes() {
+            if (!localStorage.getItem('tshirt_votes')) {
+                const initialVotes = {};
+                tshirtData.forEach(t => {
+                    initialVotes[t.id] = t.defaultVotes;
+                });
+                localStorage.setItem('tshirt_votes', JSON.stringify(initialVotes));
+            }
+            if (!localStorage.getItem('user_voted_shirts')) {
+                localStorage.setItem('user_voted_shirts', JSON.stringify([]));
+            }
+        }
+
+        // Render the Catalog Grid
+        function renderCatalog(filter = 'all') {
+            initVotes();
+            const votes = JSON.parse(localStorage.getItem('tshirt_votes'));
+            const votedShirts = JSON.parse(localStorage.getItem('user_voted_shirts'));
+            const catalogContainer = document.getElementById('tshirt-catalog');
+            catalogContainer.innerHTML = '';
+
+            const filteredData = filter === 'all' 
+                ? tshirtData 
+                : tshirtData.filter(t => t.category === filter);
+
+            filteredData.forEach(item => {
+                const isVoted = votedShirts.includes(item.id);
+                const voteBtnText = isVoted ? '已投票 (Voted)' : '投票 (Vote)';
+                const voteBtnClass = isVoted ? 'vote-btn voted' : 'vote-btn';
+                const voteBtnAttr = isVoted ? 'disabled' : `onclick="castVote('${item.id}')"`;
+
+                const cardHtml = `
+                    <div class="tshirt-card" data-category="${item.category}">
+                        <div class="tshirt-card-badge style-${item.category}">${item.categoryName}</div>
+                        <div class="tshirt-image-wrapper">
+                            <img src="${item.image}" alt="${item.name}" class="tshirt-card-image">
+                        </div>
+                        <div class="tshirt-info">
+                            <h3 class="tshirt-title">${item.name}</h3>
+                            <p class="tshirt-desc">${item.desc}</p>
+                            <div class="tshirt-vote-footer">
+                                <div class="vote-count-label">
+                                    得票: <span class="vote-count-number" id="vote-count-${item.id}">${votes[item.id] || 0}</span> 票
+                                </div>
+                                <button class="${voteBtnClass}" id="vote-btn-${item.id}" ${voteBtnAttr}>
+                                    ${voteBtnText}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                catalogContainer.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
+
+        // Filter catalog cards
+        function filterCatalog(category) {
+            // Update active button state
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Re-render matching cards
+            renderCatalog(category);
+        }
+
+        // Cast a Vote for a T-Shirt
+        function castVote(shirtId) {
+            initVotes();
+            const votes = JSON.parse(localStorage.getItem('tshirt_votes'));
+            const votedShirts = JSON.parse(localStorage.getItem('user_voted_shirts'));
+
+            // Check if already voted
+            if (votedShirts.includes(shirtId)) return;
+
+            // Increment votes
+            votes[shirtId] = (votes[shirtId] || 0) + 1;
+            votedShirts.push(shirtId);
+
+            localStorage.setItem('tshirt_votes', JSON.stringify(votes));
+            localStorage.setItem('user_voted_shirts', JSON.stringify(votedShirts));
+
+            // Update UI immediately
+            document.getElementById(`vote-count-${shirtId}`).textContent = votes[shirtId];
+            
+            const btn = document.getElementById(`vote-btn-${shirtId}`);
+            btn.className = 'vote-btn voted';
+            btn.textContent = '已投票 (Voted)';
+            btn.onclick = null;
+            btn.setAttribute('disabled', 'true');
+        }
+
+        // --- Admin Dashboard Modal functions ---
+        function openAdminModal() {
+            document.getElementById('admin-modal').classList.add('active');
+            document.getElementById('passcode-box').style.display = 'block';
+            document.getElementById('dashboard-panel').style.display = 'none';
+            document.getElementById('admin-passcode').value = '';
+            document.getElementById('passcode-error').style.display = 'none';
+            document.getElementById('admin-passcode').focus();
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.remove('active');
+        }
+
+        function checkPasscodeEnter(e) {
+            if (e.key === 'Enter') {
+                verifyPasscode();
+            }
+        }
+
+        function verifyPasscode() {
+            const passcode = document.getElementById('admin-passcode').value;
+            if (passcode === '5555') {
+                document.getElementById('passcode-box').style.display = 'none';
+                document.getElementById('dashboard-panel').style.display = 'block';
+                renderDashboardData();
+            } else {
+                document.getElementById('passcode-error').style.display = 'block';
+            }
+        }
+
+        // Render Dashboard details and charts
+        function renderDashboardData() {
+            const votes = JSON.parse(localStorage.getItem('tshirt_votes')) || {};
+            
+            // Calculate totals
+            let totalVotes = 0;
+            let catVotes = { jp: 0, us: 0, tw: 0, eu: 0 };
+            let topShirt = null;
+            let maxVotes = -1;
+
+            tshirtData.forEach(shirt => {
+                const count = votes[shirt.id] || 0;
+                totalVotes += count;
+                catVotes[shirt.category] += count;
+
+                if (count > maxVotes) {
+                    maxVotes = count;
+                    topShirt = shirt;
+                }
+            });
+
+            // Set Stats Text
+            document.getElementById('stat-total-votes').textContent = totalVotes;
+            document.getElementById('stat-top-style').textContent = topShirt ? `${topShirt.name} (${maxVotes}票)` : '無';
+
+            // Set Category Progress Bars
+            const jpPercent = totalVotes > 0 ? Math.round((catVotes.jp / totalVotes) * 100) : 0;
+            const usPercent = totalVotes > 0 ? Math.round((catVotes.us / totalVotes) * 100) : 0;
+            const twPercent = totalVotes > 0 ? Math.round((catVotes.tw / totalVotes) * 100) : 0;
+            const euPercent = totalVotes > 0 ? Math.round((catVotes.eu / totalVotes) * 100) : 0;
+
+            document.getElementById('percent-label-jp').textContent = `${catVotes.jp}票 (${jpPercent}%)`;
+            document.getElementById('bar-jp').style.width = `${jpPercent}%`;
+
+            document.getElementById('percent-label-us').textContent = `${catVotes.us}票 (${usPercent}%)`;
+            document.getElementById('bar-us').style.width = `${usPercent}%`;
+
+            document.getElementById('percent-label-tw').textContent = `${catVotes.tw}票 (${twPercent}%)`;
+            document.getElementById('bar-tw').style.width = `${twPercent}%`;
+
+            document.getElementById('percent-label-eu').textContent = `${catVotes.eu}票 (${euPercent}%)`;
+            document.getElementById('bar-eu').style.width = `${euPercent}%`;
+
+            // Render Leaderboard table
+            const sortedShirts = [...tshirtData].sort((a, b) => (votes[b.id] || 0) - (votes[a.id] || 0));
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = '';
+
+            sortedShirts.forEach((shirt, index) => {
+                const rowHtml = `
+                    <tr class="leaderboard-row">
+                        <td class="leaderboard-rank">#${index + 1}</td>
+                        <td><img src="${shirt.image}" class="leaderboard-img"></td>
+                        <td style="font-weight: 600; color: white;">${shirt.name}</td>
+                        <td><span style="font-size: 0.85rem; color: var(--color-text-muted);">${shirt.categoryName}</span></td>
+                        <td style="font-weight: 700; color: var(--color-cyan); font-family: var(--font-tech);">${votes[shirt.id] || 0} 票</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', rowHtml);
+            });
+        }
+
+        // Reset votes to baseline
+        function resetAllVotes() {
+            if (confirm('確定要將所有投票數據重設為初始值嗎？此動作無法復原。')) {
+                localStorage.removeItem('tshirt_votes');
+                localStorage.removeItem('user_voted_shirts');
+                initVotes();
+                renderCatalog();
+                renderDashboardData();
+            }
+        }
+
+        // Initialize Catalog on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCatalog('all');
+        });
+        }
+    </script>
+</body>
+</html>
