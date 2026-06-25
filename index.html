@@ -156,11 +156,11 @@
 
         <!-- Category Filter Tabs -->
         <div class="filter-container">
-            <button class="filter-btn active" onclick="filterCatalog('all')">顯示全部 (ALL)</button>
-            <button class="filter-btn" onclick="filterCatalog('jp')">🇯🇵 日式風格 (JAPANESE)</button>
-            <button class="filter-btn" onclick="filterCatalog('us')">🇺🇸 美式風格 (AMERICAN)</button>
-            <button class="filter-btn" onclick="filterCatalog('tw')">🇹🇼 台式風格 (TAIWANESE)</button>
-            <button class="filter-btn" onclick="filterCatalog('eu')">🇪🇺 歐式風格 (EUROPEAN)</button>
+            <button class="filter-btn active" onclick="filterCatalog('all', event)">顯示全部 (ALL)</button>
+            <button class="filter-btn" onclick="filterCatalog('jp', event)">🇯🇵 日式風格 (JAPANESE)</button>
+            <button class="filter-btn" onclick="filterCatalog('us', event)">🇺🇸 美式風格 (AMERICAN)</button>
+            <button class="filter-btn" onclick="filterCatalog('tw', event)">🇹🇼 台式風格 (TAIWANESE)</button>
+            <button class="filter-btn" onclick="filterCatalog('eu', event)">🇪🇺 歐式風格 (EUROPEAN)</button>
         </div>
 
         <!-- T-Shirt Catalog Grid -->
@@ -613,10 +613,12 @@
         }
 
         // Filter catalog cards
-        function filterCatalog(category) {
+        function filterCatalog(category, event) {
             // Update active button state
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
             
             // Re-render matching cards
             renderCatalog(category);
@@ -756,7 +758,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             renderCatalog('all');
         });
-        }
     </script>
 </body>
 </html>
